@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Model
 {
   public class Memory
@@ -24,21 +22,25 @@ namespace Model
       return $"{counter} => {A} {OperatorSign} {B} = {Result}";
     }
 
-    public override bool Equals(object? obj)
+    public override bool Equals(object? other)
     {
-      if (obj == null) return false;
-      if (obj.GetType() == this.GetType())
+      if (other == null) return false;
+      if (other.GetType() == this.GetType())
       {
-        Memory objMemory = (Memory)obj;
+        Memory otherAsMemory = (Memory)other;
 
         return (
-          objMemory.A == this.A &&
-          objMemory.B == this.B &&
-          objMemory.OperatorSign == this.OperatorSign
+          otherAsMemory.A == this.A &&
+          otherAsMemory.B == this.B &&
+          otherAsMemory.OperatorSign == this.OperatorSign
           );
       }
       return false;
     }
 
+    public override int GetHashCode()
+    {
+      return HashCode.Combine(A, B, OperatorSign);
+    }
   }
 }
